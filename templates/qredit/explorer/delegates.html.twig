@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page_title }} - {{ module_title }}{% endblock %}
+
+{% block body %}
+
+<h2>{{ module_title }}</h2>
+
+{% if response is defined %}
+
+<div class="table-responsive">
+	<table class="table table-sm table-striped">
+        <thead>
+          <tr>
+          <th scope="col">Username</th>
+          <th scope="col">Address</th>
+          <th scope="col">Votes</th>
+          <th scope="col">Rank</th>
+          <th scope="col">Blocks Produced</th>
+          <th scope="col">Last Block</th>
+          <th scope="col">Total Forged</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for block in response %}
+        <tr>
+          <td>{{ block.username|tooltip|raw }}</td>
+          <td>{{ block.address|tooltip|raw }}</td>
+          <td>{{ block.votes }}</td>
+          <td>{{ block.rank }}</td>
+          <td>{{ block.blocks.produced }}</td>
+          <td>{% if block.blocks.last.timestamp.epoch is defined %}{{ block.blocks.last.timestamp.epoch|blockdate }}{% else %}N/A{% endif %}</td>
+		  <td>{{ block.forged.total|xqr }} XQR</td>
+        </tr>
+        {% endfor %} 
+        </tbody>
+	</table>
+</div>
+          
+{% else %}
+<p class="text-danger"><b>Error:</b> {% if response.error is defined %}{{response.error}}{% else %}Error connecting server{% endif %}</p>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,30 @@
+{% if response.success == true %}
+
+<div class="table-responsive">
+	<table class="table table-sm table-striped">
+	<caption>Supply: {{ supply|xqr }} XQR</caption>
+        <thead>
+          <tr>
+          <th scope="col">#</th>
+          <th scope="col">WalletID</th>
+          <th scope="col">Balance</th>
+          <th scope="col">Supply</th>
+        </tr>
+        </thead>
+        <tbody>
+ 		{% for account in response.accounts %}
+ 			<tr>
+ 			<td>{{ loop.index }}</td>
+ 			<td>{{ account.address }}</td>
+ 			<td>{{ account.balance|xqr }} XQR</td>
+ 			<td>{{ ((account.balance/supply)*100)|round(2, 'common') }}%</td>
+ 			</tr>
+ 		{% endfor %}
+        </tbody>
+	</table>
+</div>
+    
+          
+{% else %}
+<p class="text-danger">Error: {{response.error}}
+{% endif %}

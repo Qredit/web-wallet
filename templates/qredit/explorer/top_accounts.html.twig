@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page_title }} - {{ module_title }}{% endblock %}
+
+{% block body %}
+
+<h2>{{ module_title }}</h2>
+
+{% if response is defined %}
+
+<div class="table-responsive">
+	<table class="table table-sm table-striped">
+        <thead>
+          <tr>
+          <th scope="col">Username</th>
+          <th scope="col">Address</th>
+          <th scope="col">Is Delegate</th>
+          <th scope="col">Balance</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for block in response %}
+        <tr>
+          <td>{% if block.username != null %}{{ block.username|tooltip|raw }}{% else %}{% endif %}</td>
+          <td>{{ block.address|tooltip|raw }}</td>
+          <td>{% if block.isDelegate == true %}Yes{% else %}No{% endif %}</td>
+		  <td>{{ block.balance|xqr }} XQR</td>
+        </tr>
+        {% endfor %} 
+        </tbody>
+	</table>
+</div>
+          
+{% else %}
+<p class="text-danger"><b>Error:</b> {% if response.error is defined %}{{response.error}}{% else %}Error connecting server{% endif %}</p>
+{% endif %}
+
+{% endblock %}

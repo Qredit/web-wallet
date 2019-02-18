@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page_title }} - {{ module_title }}{% endblock %}
+
+{% block body %}
+
+<h2>{{ module_title }}</h2>
+
+{% if response is defined %}
+<div class="table-responsive">
+	<table class="table table-sm table-striped">
+        <thead>
+          <tr>
+          <th scope="col">Date</th>
+          <th scope="col">TransactionID</th>
+          <th scope="col">Sender</th>
+          <th scope="col">Recipient</th>
+          <th scope="col">SmartBridge</th>
+          <th scope="col">Confirmations</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Fee</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for block in response %}
+        <tr>
+          <td>{{ block.timestamp.epoch|blockdate }}</td>
+          <td>{{ block.id|tooltip|raw }}</td>
+          <td>{{ block.sender|tooltip|raw }}</td>
+          <td>
+        	{% if block.recipient is defined %}  
+                {{ block.recipient|tooltip|raw }}
+          	{% endif %}  
+          </td>
+          <td>
+          	{% if block.vendorField is defined %}
+                {{ block.vendorField }}
+            {% endif %}
+          </td>
+          <td>
+          	{% if block.confirmations > 51 %}
+          		Confirmed
+          	{% else %}
+              {{ block.confirmations }}
+            {% endif %}
+          </td>
+          <td>{{ block.amount|xqr }} XQR</td>
+          <td>{{ block.fee|xqr }} XQR</td>
+        </tr>
+        {% endfor %} 
+        </tbody>
+	</table>
+</div>
+    
+          
+{% else %}
+<p class="text-danger"><b>Error:</b> {% if response.error is defined %}{{response.error}}{% else %}Error connecting server{% endif %}</p>
+{% endif %}
+
+{% endblock %}

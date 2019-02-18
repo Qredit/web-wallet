@@ -1,0 +1,31 @@
+{% if response.success == true %}
+<div class="table-responsive">
+	<table class="table table-sm table-striped">
+	<caption>Supply: {{ supply|xqr }} XQR</caption>
+        <thead>
+          <tr>
+          <th scope="col">#</th>
+          <th scope="col">Username</th>
+          <th scope="col">Forged Blocks</th>
+          <th scope="col">Approval</th>
+          <th scope="col">Productivity</th>
+        </tr>
+        </thead>
+        <tbody>
+ 		{% for delegate in response.delegates %}
+ 			<tr>
+ 			<td>{{ delegate.rate }}</td>
+ 			<td>{{ delegate.username }}</td>
+ 			<td>{{ delegate.producedblocks }}</td>
+ 			<td>{{ delegate.approval }}%</td>
+ 			<td>{{ delegate.productivity }}%</td>
+ 			</tr>
+ 		{% endfor %}
+        </tbody>
+	</table>
+</div>
+    
+          
+{% else %}
+<p class="text-danger">Error: {{response.error}}
+{% endif %}

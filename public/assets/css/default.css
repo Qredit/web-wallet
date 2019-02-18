@@ -1,0 +1,30 @@
+:root {
+    --message-color-even: #495158;
+    --message-color-odd: #6c757d; 
+}
+
+.mouseover:hover {
+	cursor:pointer;
+	color:#d22d3d;
+}
+
+.page-header {
+	margin-bottom:40px;
+}
+
+h2 {
+	font-size:28px;
+}
+
+#sidebarCollapse {
+	opacity:0.5;
+}
+
+#sidebarCollapse:hover {
+	opacity:1;
+}
+
+.nav-header {
+	font-weight:bold;
+	margin-bottom:0px;
+}

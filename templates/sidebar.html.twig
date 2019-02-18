@@ -1,0 +1,55 @@
+<!-- Sidebar  -->
+        <nav id="sidebar" class="mCustomScrollbar _mCS_1 mCS-autoHide mCS_no_scrollbar" style="overflow: visible;"><div id="mCSB_1" class="mCustomScrollBox mCS-minimal mCSB_vertical mCSB_outside" style="max-height: none;" tabindex="0"><div id="mCSB_1_container" class="mCSB_container mCS_y_hidden mCS_no_scrollbar_y" style="position:relative; top:0; left:0;" dir="ltr">
+            <div class="sidebar-header"> <a href="{{ path("index") }}">
+            	<img src="{{ asset("assets/images/qredit-cp-dark-1.png") }}" width="200"></a>
+            	<!-- 
+                <h3>Qredit Dashboard</h3>
+                 -->
+            </div>
+            <ul class="list-unstyled components">
+                <p class="nav-header">Navigation</p>
+                <li>
+                    <a href="{{ path("index") }}">Home</a>
+                </li>
+                <li>
+                    <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Wallets</a>
+                    <ul class="list-unstyled collapse" id="homeSubmenu">
+                        {% if app.request.cookies.get('wallets') > 0 %}
+                       	
+                       	{% for wallet in app.request.cookies.get('wallets') %}
+                       	<li>
+                       		<a href="{{ path('qredit_wallet', {"id": wallet}) }}">
+                       		{% if app.request.cookies.get('name')[loop.index0] is defined %}
+                       			{{ app.request.cookies.get('name')[loop.index0] }}
+                       		{% else %}
+                       		    {{ wallet }}
+                       		{% endif %}
+                       		</a>
+                       	</li> 
+                       	{% endfor %}
+                       	
+                       	<li class="line"></li>
+                        {% endif %}  
+                    	<li>
+                            <a href="{{ path('qredit_wallet_make') }}">Create new</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('qredit_wallet_import') }}">Import Wallet</a>
+                        </li>      
+
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="{{ path("qredit_explorer") }}">Explorer</a>
+                </li>    
+                    {% if app.request.cookies.get('wallets') > 0 %}
+                    <li>
+                    	<a href="{{ path('qredit_logout') }}"><i class="fa fa-user-secret"></i> Logout</a>
+                    </li>
+                    {% endif %} 
+				</ul>
+
+        </div></div>
+
+        </nav>

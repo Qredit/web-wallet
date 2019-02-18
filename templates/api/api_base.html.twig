@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page_title }} - {{ module_title }}{% endblock %}
+
+{% block body %}
+
+<h2>{{ module_title }}</h2>
+
+{{ include('api/api_template.html.twig') }}
+
+{% endblock %}

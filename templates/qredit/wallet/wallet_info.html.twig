@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page_title }} - {{ module_title }}{% endblock %}
+
+{% block body %}
+
+<h2>Wallet Label</h2>
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+
+
+<h2>
+{% if module_title is defined %}
+{{ module_title }}
+{% endif %}
+</h2>
+
+{% if wallet is defined and wallet.address is defined %}
+
+<div class="table-responsive">
+	<table class="table table-sm table-bordered">
+        <tbody>
+        	<tr>
+        		<td>Address</td><td>{{ id }}</td>
+        	</tr>
+        	<tr>	
+        		<td>Coins</td><td>{{ wallet.balance|xqr }} XQR</td>
+        	</tr>
+        	<tr>
+        		<td>QR Code</td><td><img src="{{ qr }}"></td>
+        	</tr>
+        </tbody>
+</table>
+</div>
+
+<h2>Transactions</h2>
+<div class="table-responsive">
+	<table class="table table-sm table-bordered">
+        <tbody>
+        <caption>Transactions : {{ transactions.count }}</caption>
+        <thead>
+          <tr>
+          <th scope="col">Date</th>
+          <th scope="col">To/From</th>
+          <th scope="col">SmartBridge</th>
+          <th scope="col">Amount</th>
+          <th scope="col">Fee</th>
+        </tr>
+        </thead>
+        {% for transaction in transactions.transactions %}
+        	<tr>
+        	{% if transaction.role == 'sender' %}
+        		<td>{{ transaction.timestamp.epoch|blockdate }}</td>
+				<td>{% if transaction.recipient is defined %}{{ transaction.recipient }}{% endif %}</td>
+        		<td>{% if transaction.vendorField is defined %}{{ transaction.vendorField }}{% endif %}</td>
+        		<td>-{{ transaction.amount|xqr }}</td>
+        		<td>{{ transaction.fee|xqr }}</td>
+        	{% else %}
+        		<td>{{ transaction.timestamp.epoch|blockdate }}</td>
+        		<td>{{ transaction.sender }}</td>
+        		<td>{% if transaction.vendorField is defined %}{{ transaction.vendorField }}{% endif %}</td>
+        		<td>+{{ transaction.amount|xqr }}</td>
+        		<td>{{ transaction.fee|xqr }}</td>        	
+        	{% endif %}
+        	
+        	</tr>
+        {% endfor %}
+        </tbody>
+</table>
+</div>
+
+{% else %}
+
+<div class="table-responsive">
+	<table class="table table-sm table-bordered">
+        <tbody>
+        	<tr>
+        		<td>Address</td><td>{{ id }}</td>
+        	</tr>
+        	<tr>	
+        		<td>Coins</td><td>0 XQR</td>
+        	</tr>
+        </tbody>
+</table>
+
+<h2>Transactions</h2>
+<div class="table-responsive">
+	<table class="table table-sm table-bordered">
+        <tbody>
+        	<tr>
+        		<td>No transactions yet</td>
+        	</tr>
+        </tbody>
+</table>
+</div>
+{% endif %}
+		
+
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+// $("#qr").load("/qae-dashboard/public/api/wallet/qr/id/{{ id }}");
+</script>
+{% endblock %}

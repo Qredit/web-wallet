@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page_title }} - {{ module_title }}{% endblock %}
+
+{% block body %}
+
+<h2>
+{% if module_title is defined %}
+{{ module_title }}
+{% endif %}
+</h2>
+
+{% if response is defined %}
+
+
+
+
+{% endif %}
+
+{% if form is defined %}
+		
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+
+{% endif %}
+		
+
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+function toggleShowPass(){
+	var check = $("#check").prop("checked");
+	var input = $("#input");
+	
+	if(check === true){
+		input.prop("type", "text");
+	} else {
+		input.prop("type", "password");
+	}
+}
+</script>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ page_title }} - {{ module_title }}{% endblock %}
+
+{% block stylesheets %}
+<style>
+.unselectable {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+.big {
+	font-size:100%;
+	border-bottom: 1px dotted #000;
+    text-decoration: none;
+}
+</style>
+{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+<div class="col-md-12">
+
+<h2>
+{% if module_title is defined %}
+{{ module_title }}
+{% endif %}
+</h2>
+
+The random sentence is your passphrase. Be sure to write this down!<br>
+This is what you need to import your wallet in case you lost your wallet.<br>
+The passphrase is personal and don't share this with anyone.<br>
+If you lost it. We cannot retrieve anything.<br><br>
+
+<div class="form-group">
+<p id="verse" class="big unselectable">{{ verse }}</p>
+
+<input id="toggle-event" type="checkbox" data-toggle="toggle" data-onstyle="success" data-offstyle="warning" data-size="small">
+ <label>Enable Selecting</label>
+</div>
+		
+{{ form_start(form) }}
+{{ form_widget(form) }}
+{{ form_end(form) }}
+		
+
+
+</div>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+<script type="text/javascript">
+$('#toggle-event').change(function() {
+	$("#verse").toggleClass("unselectable");
+})
+</script>
+{% endblock %}
