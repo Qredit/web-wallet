@@ -3,6 +3,8 @@ Qredit Web Wallet on Symfony Framework
 Features
 - send and receive transactions
 - send multiple transactions
+- create multiple wallets
+- delete cookies
 - explorer
 
 Live Version: https://web.qredit.io
