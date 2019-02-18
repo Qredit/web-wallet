@@ -4,6 +4,7 @@ Features
 - send and receive transactions
 - send multiple transactions
 - create multiple wallets
+- label wallets
 - delete cookies
 - explorer
 
