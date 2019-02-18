@@ -1,4 +1,4 @@
-Qredit Web Wallet
+Qredit Web Wallet on Symfony Framework
 
 Features
 - send and receive transactions
@@ -6,6 +6,8 @@ Features
 - explorer
 
 Live Version: https://web.qredit.io
+
+Requires: webserver with php 7.1 or higher
 
 Credits
 - Nayiem Willems | nayiem@qredit.io
